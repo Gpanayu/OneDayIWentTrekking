@@ -6,6 +6,7 @@ class Device:
     peer_latlon = []    # stores tuple of lat, lon in a form of (version, lat, lon)
     lat_mean = 0
     lon_mean = 0
+    ver = 0         # version of lat, lon
     lat = 0
     lon = 0
 
@@ -34,7 +35,7 @@ class Device:
         bd_addr = address
         sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
         sock.connect((bd_addr, port))
-        obj = {"address": address, "name": name, "lat": lat, "lon": lon}
+        obj = {"address": address, "name": name, "ver": ver, "lat": lat, "lon": lon}
         sock.send(obj)
         sock.close()
 
@@ -53,6 +54,11 @@ class Device:
         if not (data.address in self.peer_MAC and "boy" == data.name[:3]):
             peer_MAC.append(address)
             peer_name.append(name)
+            peer_latlon.append((-1, 0, 0))
+
+        idx = peer_MAC.index(data.address)
+        if peer_latlon[idx][0] < data.ver:
+            peer_MAC[idx] = (data.ver, data.lat, data.lon)
 
         client_sock.close()
         server_sock.close()

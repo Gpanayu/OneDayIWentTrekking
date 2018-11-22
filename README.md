@@ -1,5 +1,4 @@
 # OneDayIWentTrekking
-Wireless Computer Networks Class Project using Ad Hoc Networks via Bluetooth on Raspberry Pi
+Wireless Computer Networks Class Project 2018 using Ad Hoc Networks via WiFi
 
-Related links:
-https://people.csail.mit.edu/albert/bluez-intro/
+Python implementation with Scapy library
